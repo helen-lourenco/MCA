@@ -1,2 +1,2 @@
 # MCA
-Multiple Correspondence Analysis in R
+Análise de Correspondência Múltipla em R
