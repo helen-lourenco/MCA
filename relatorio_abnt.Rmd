@@ -1,0 +1,88 @@
+---
+title: ""
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: false
+header-includes:
+  - \usepackage{geometry}
+  - \geometry{a4paper, top=3cm, left=3cm, right=2cm, bottom=2cm}
+  - \usepackage{setspace}
+  - \usepackage{titling}
+fontsize: 12pt
+geometry: a4paper
+---
+
+\begin{titlepage}
+\begin{center}
+
+{\normalsize \textbf{UNIVERSIDADE FEDERAL DO PARANÁ}}\\
+
+\vspace*{5cm}
+
+{\normalsize HELEN EDUARDA DOS SANTOS LOURENÇO}\\
+{\normalsize VITOR NICKHORN KROEFF}
+
+\vspace*{3.5cm}
+
+{\large \textbf{AVALIAÇÃO DA MCA E VARIÁVEIS SUPLEMENTARES}}
+
+\vfill
+
+{\normalsize Curitiba}\\
+{\normalsize 2025}
+
+\end{center}
+\end{titlepage}
+
+\begin{titlepage}
+\begin{center}
+
+{\normalsize HELEN EDUARDA DOS SANTOS LOURENÇO}\\
+{\normalsize VITOR NICKHORN KROEFF}
+
+\vspace*{5cm}
+
+{\large \textbf{AVALIAÇÃO DA MCA E VARIÁVEIS SUPLEMENTARES}}
+
+\vspace*{4cm}
+
+\begin{flushright}
+\parbox{0.5\textwidth}{
+{\normalsize
+Trabalho apresentado à disciplina CE318 – Aprendizado não Supervisionado, do Curso de Graduação em Estatística da Universidade Federal do Paraná, como requisito para composição parcial da nota.
+}
+}
+\end{flushright}
+
+\vspace{1cm}
+
+\begin{flushright}
+\parbox{0.5\textwidth}{
+{\normalsize
+Prof. Dr. Anderson Luiz Ara Souza
+}
+}
+\end{flushright}
+
+\vfill
+
+{\normalsize Curitiba}\\
+{\normalsize 2025}
+
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+# 1 DADOS
+
+\newpage
+
+# 2 XXX
+
+\newpage
+
+# REFERÊNCIAS
