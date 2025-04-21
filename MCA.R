@@ -13,11 +13,11 @@ head(poison)
 poison_sup <- poison # Variáveis suplementares: Age, Time, Sick e Sex
 poison_mca <- poison %>% select(-c(1:4))
 
-head(poison_mca)
+head(poison)
 summary(poison_mca)
-
+length(colnames(poison))
 # MCA
-mca_res <- MCA(poison_mca, graph=F)
+mca_res <- MCA(poison, quanti.sup = 1:2, quali.sup = 3:4, graph = FALSE)
 
 summary(mca_res)
 
@@ -36,6 +36,12 @@ fviz_mca_ind(mca_res,
 fviz_screeplot(mca_res, 
                addlabels = TRUE, 
                ylim = c(0, 60))
+
+
+# Plotando variáveis suplementares
+plot(mca_res, choix = 'var', col.quali.sup = "steelblue4",
+     col.quanti.sup = 'green4')
+
 
 
 

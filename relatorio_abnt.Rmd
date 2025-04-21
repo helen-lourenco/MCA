@@ -88,6 +88,15 @@ Entre as principais técnicas de análise de dados multivariados, destaca-se a A
 
 A Análise de Correspondência Múltipla se baseia na construção de um novo sistema de coordenadas, obtido por meio de uma transformação linear das variáveis.
 
+A fórmula
+
+
+$$ BLA \\ BLA \\ BLA$$
+
+## Variáveis Suplementares
+
+Uma parte importante da análise de correspondência Múltipla é a inclusão de elementos suplementares. Esses elementos não são inclusos no cálculo dos vetores F e G, mas são utilizadas para adicionar informação a análise, principalmente na parte gráfica.
+
 
 \newpage
 
