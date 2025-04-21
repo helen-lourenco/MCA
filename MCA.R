@@ -1,9 +1,7 @@
 # Pacotes
-#install.packages("pacman")
+install.packages("pacman")
 pacman::p_load(dplyr, ggplot2, FactoMineR,
                factoextra, rcompanion, BiocManager)
-
-
 
 # Dados
 
@@ -20,6 +18,7 @@ poison_mca <- poison %>% select(-c(1:4))
 head(poison)
 summary(poison_mca)
 length(colnames(poison))
+
 # MCA
 #mca_res <- MCA(poison_mca, graph=F)
 mca_res <- MCA(poison, quanti.sup = 1:2,
@@ -46,7 +45,7 @@ fviz_screeplot(mca_res,
 
 # Plotando variáveis suplementares
 #plot(mca_res, choix = 'var', col.quali.sup = "steelblue4",
- #    col.quanti.sup = 'green4')
+#    col.quanti.sup = 'green4')
 
 
 # Plot das variáveis
@@ -70,7 +69,7 @@ fviz_mca_var(mca_res, col.var = "cos2",
              repel = TRUE, # Avoid text overlappin
              gggtheme = theme_minimal())
 
-# Gráfico variáveis suplementares quantitativas.
+# Gráfico variáveis suplementares quantitativas
 fviz_mca_var(mca_res, choice = "quanti.sup",
              ggtheme = theme_minimal())
 
@@ -79,4 +78,3 @@ fviz_cos2(mca_res, choice = "var", axes = 1:2)
 
 
 mca_res$call
-

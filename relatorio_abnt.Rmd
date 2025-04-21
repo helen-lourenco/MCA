@@ -79,27 +79,157 @@ Prof. Dr. Anderson Luiz Ara Souza
 
 \newpage
 
-# 1 DADOS
+# 1 Introdução MCA
+
+```{r echo = F, warning = F, message = F}
+# Pacotes
+pacman::p_load(dplyr, ggplot2, FactoMineR,
+               factoextra, knitr, kableExtra)
+```
+
+A Análise de Correspondência Múltipla (MCA) é uma extensão da Análise de Correspondência Simples (CA), técnica utilizada para visualizar relações entre dados categóricos. Seu objetivo é reduzir a dimensionalidade de um conjunto de dados e representar, de forma bidimensional e simplificada, as relações entre as variáveis e os indivíduos. Além disso, na MCA, podemos analisar a quantidade de informação retida em cada dimensão (inércia).
+
+Ainda, na MCA, temos as informações chamadas de suplementares, que são variáveis que não influenciam no cálculo da estrutura geométrica dos dados reduzidos, mas podem 
+ser projetadas nesse espaço, ajudando na interpretação dos resultados.
+
+# 2 Dados
+
+Decidimos utilizar o conjunto de dados *poison*, disponível no pacote *FactoMineR* do software R, para aplicação da MCA. Os dados são referentes a uma pesquisa realizada com uma amostra de crianças do ensino fundamental que sofreram intoxicação alimentar. Elas foram questionadas sobre os sintomas apresentados e sobre os alimentos que consumiram.
+
+Descrição do conjunto de dados:
+
+\scriptsize
+
+```{r echo = T, comment = NA}
+data(poison)
+
+# Dimensão
+dim(poison)
+
+# Variáveis
+summary(poison)
+```
+
+\normalsize
+
+Vamos utilizar como informações suplementares as variáveis *Age* (Idade), *Time* (Tempo), *Sick* (Se está doente ou não), e *Sex* (Gênero). 
 
 \newpage
 
-# 2 MCA
-Entre as principais técnicas de análise de dados multivariados, destaca-se a Análise de Correspondência Múltipla (MCA), que é uma extensão da Análise de Correspondência Simples (CA). A MCA é aplicada a dados categóricos com o objetivo de reduzir a dimensionalidade e representar, de forma visual e simplificada, as relações entre os indivíduos e as categorias.
+# 3 Aplicação da MCA
 
-A Análise de Correspondência Múltipla se baseia na construção de um novo sistema de coordenadas, obtido por meio de uma transformação linear das variáveis.
+## Inércia
 
-A fórmula
+\scriptsize
 
+```{r echo = T, comment = NA}
+# Ajuste da MCA e configuração das informações suplementares
+mca_res <- MCA(poison, quanti.sup = 1:2,
+               quali.sup = 3:4, graph = FALSE)
 
-$$ BLA \\ BLA \\ BLA$$
+# Quantidade de informação retida em cada dimensão
+fviz_screeplot(mca_res, 
+               addlabels = TRUE, 
+               ylim = c(0, 40))
+```
 
-## Variáveis Suplementares
+\normalsize
 
-Uma parte importante da análise de correspondência Múltipla é a inclusão de elementos suplementares. Esses elementos não são inclusos no cálculo dos vetores F e G, mas são utilizadas para adicionar informação a análise, principalmente na parte gráfica.
+No gráfico acima, que representa a inércia de cada uma das dimensões, temos que a primeira dimensão retém 33,5% da informação (variabilidade dos dados), a segunda 12,9%, e assim por diante. Juntas, a primeira e a segunda dimensão explicam 46,4% da variabilidade dos dados, com inércia residual de 53,6%.
 
+## Visualização
+
+\scriptsize
+
+```{r echo = T, comment = NA, warning = F, message = F}
+# Visualização variáveis categóricas dimensões 1 e 2
+fviz_mca_var(mca_res, 
+             repel = TRUE,
+             ggtheme = theme_minimal(),
+             col.ind = "grey90",
+             alpha.ind = 0.95,
+             col.var = "salmon"
+)
+```
+
+\normalsize
+
+No gráfico acima, a dimensão 1 parece separar os indivíduos que não tiveram sintomas e não comeram alguns alimentos (lado direito), daqueles que tiveram sintomas e comeram outros alimentos (lado esquerdo). Fica claro também os indivíduos que não apresentaram os sintomas geralmente não comeram queijo e maionese e comeram abobrinha (*Courg_y*). 
+A variável suplementar *Sex*, que indica o gênero da criança, não parece influenciar nos sintomas.
+
+## Qualidade por Dimensão
+
+Podemos extrair a correlação das ocorrências com cada dimensão da análise, para verificar se elas representam bem as suas variações. A dimensão 1 explica muito bem a variação das dores abdominais, por exemplo.
+
+\scriptsize
+
+```{r echo = T, comment = NA, warning = F, message = F}
+mca_var <- get_mca_var(mca_res)
+round(head(mca_var$cos2, 6),2)
+```
+
+\normalsize
+
+### Visualização
+
+\scriptsize
+
+```{r echo = T, comment = NA, warning = F, message = F}
+fviz_mca_var(mca_res, col.var = "cos2",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
+             repel = TRUE,
+             ggtheme = theme_minimal())
+```
+
+\normalsize
+
+Com as variáveis representadas em um mapa de cores de acordo com a qualidade por dimensão, fica claro que a variável *Fish*, que indica se a criança comeu peixe ou não, não está sendo bem representada por essas duas dimensões.
+
+Abaixo, puxando os valores apenas dessa variável, vemos que ela está muito mais correlacionada com as dimensões 3 e 4.
+
+\scriptsize
+
+```{r echo = T, comment = NA, warning = F, message = F}
+round(mca_var$cos2[13:14,],2)
+```
+
+\normalsize
+
+## Variáveis Suplementares Numéricas
+
+Escolhemos *Age* e *Time* como informações suplementares anteriormente, e ambas são variáveis numéricas. Uma forma de visualizar a correlação das variáveis com as dimensões e incluir essas duas informações, seria o gráfico abaixo.
+
+\scriptsize
+
+```{r echo = T, comment = NA, warning = F, message = F}
+fviz_mca_var(mca_res, choice = "mca.cor",
+             repel = TRUE)
+```
+
+\normalsize
+
+Apesar da idade não estar correlacionada com essas duas dimensões, o tempo tem uma correlação forte com a dimensão 1 e fica próximo dos sintomas mais fortes, como febre, diarréia e dores abdominais, além da variável *Sick*, que indica se a criança passou mal.
+
+Coordenadas variáveis numéricas:
+
+\scriptsize
+
+```{r echo = T, comment = NA, warning = F, message = F}
+mca_res$quanti
+```
+
+\normalsize
+
+# 4 Conclusão
+
+A ausência de certos alimentos, como queijo e maionese, está associada à ausência de sintomas, enquanto o consumo de outros alimentos aparece vinculado aos sintomas. A variável suplementar tempo foi importante para a análise, uma vez que os indivíduos com maior tempo de exposição ou reação estão localizados na direção oposta ao centro da dimensão 1, o que indica a associação entre o tempo e sintomas mais graves. A MCA facilitou a visualização e interpretação dos padrões nos dados, explicando, em apenas duas dimensões, uma parcela significativa da variabilidade dos dados.
 
 \newpage
 
 # REFERÊNCIAS
 
+ARA, A. Análise de Correspondência e MCA (Notas de aula). 2025. Curso de Estatística, Universidade Federal do Paraná, Curitiba, 2025.
+
 Lê, S., Josse, J., & Husson, F. (2008). FactoMineR: An R Package for Multivariate Analysis. *Journal of Statistical Software*, *25*(1), 1–18. <https://doi.org/10.18637/jss.v025.i01>
+
+MCA - Multiple Correspondence Analysis in R: Essentials - Articles - STHDA. 24 de setembro de 2017, https://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/114-mca-multiple-correspondence-analysis-in-r-essentials/.
