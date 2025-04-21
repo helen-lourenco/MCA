@@ -36,3 +36,6 @@ fviz_mca_ind(mca_res,
 fviz_screeplot(mca_res, 
                addlabels = TRUE, 
                ylim = c(0, 60))
+
+
+

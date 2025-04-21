@@ -13,6 +13,7 @@ fontsize: 12pt
 geometry: a4paper
 ---
 
+```{=tex}
 \begin{titlepage}
 \begin{center}
 
@@ -34,7 +35,8 @@ geometry: a4paper
 
 \end{center}
 \end{titlepage}
-
+```
+```{=tex}
 \begin{titlepage}
 \begin{center}
 
@@ -72,7 +74,7 @@ Prof. Dr. Anderson Luiz Ara Souza
 
 \end{center}
 \end{titlepage}
-
+```
 \tableofcontents
 
 \newpage
@@ -81,8 +83,14 @@ Prof. Dr. Anderson Luiz Ara Souza
 
 \newpage
 
-# 2 XXX
+# 2 MCA
+Entre as principais técnicas de análise de dados multivariados, destaca-se a Análise de Correspondência Múltipla (MCA), que é uma extensão da Análise de Correspondência Simples (CA). A MCA é aplicada a dados categóricos com o objetivo de reduzir a dimensionalidade e representar, de forma visual e simplificada, as relações entre os indivíduos e as categorias.
+
+A Análise de Correspondência Múltipla se baseia na construção de um novo sistema de coordenadas, obtido por meio de uma transformação linear das variáveis.
+
 
 \newpage
 
 # REFERÊNCIAS
+
+Lê, S., Josse, J., & Husson, F. (2008). FactoMineR: An R Package for Multivariate Analysis. *Journal of Statistical Software*, *25*(1), 1–18. <https://doi.org/10.18637/jss.v025.i01>
