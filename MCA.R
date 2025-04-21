@@ -17,7 +17,9 @@ head(poison)
 summary(poison_mca)
 length(colnames(poison))
 # MCA
-mca_res <- MCA(poison, quanti.sup = 1:2, quali.sup = 3:4, graph = FALSE)
+#mca_res <- MCA(poison_mca, graph=F)
+mca_res <- MCA(poison, quanti.sup = 1:2,
+               quali.sup = 3:4, graph = FALSE)
 
 summary(mca_res)
 
